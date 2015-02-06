@@ -2,6 +2,6 @@ packrat/lib*/
 .Rproj.user
 .Rhistory
 .Rbuildignore
-.so
-.o
-.RData
+*.so
+*.o
+*.RData
