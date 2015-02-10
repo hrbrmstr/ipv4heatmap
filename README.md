@@ -7,6 +7,10 @@ Rcpp-backed package for making Hilbert IPv4 space heatmaps in R. The C/C++ code 
 
 (NOTE: you'll need to `brew install boost`, use some other package manager, or manually install the [boost library](http://www.boost.org/))
 
+### News
+
+- Version `0.2` fixes a bug where the resultant plot might not be 4096x4096 and also removes the last of the ggplot2 border artifacts
+
 ### Installation
 
     if (!require("devtools")) install.packages("devtools")

@@ -17,7 +17,7 @@
 #' ## plot it
 #' hm$gg
 #'
-#' ## inspect the points \code{data.table}:
+#' ## inspect the points data.table:
 #' str(hm$dt)
 #' @export
 
@@ -54,11 +54,10 @@ ipv4heatmap <- function(ips, colors=NA, cb.pal="PuOr", alpha=FALSE, legend=FALSE
       gg <- gg + geom_point(data=dt, aes(x=row, y=col, color=color), size=1)
     }
 
-    gg <- gg + xlim(0, 4095) + ylim(0, 4095)
-    gg <- gg + labs(x="", y="", title="")
+    gg <- gg + labs(x=NULL, y=NULL, title=NULL)
     gg <- gg + scale_color_manual(values=hilbcols)
-    gg <- gg + scale_x_continuous(expand=c(0,0))
-    gg <- gg + scale_y_reverse(expand=c(0,0))
+    gg <- gg + scale_x_continuous(expand=c(0,0), limits=c(0, 4095))
+    gg <- gg + scale_y_reverse(expand=c(0,0), limits=c(4095, 0))
     gg <- gg + coord_equal()
     gg <- gg + theme_bw()
 
@@ -67,15 +66,19 @@ ipv4heatmap <- function(ips, colors=NA, cb.pal="PuOr", alpha=FALSE, legend=FALSE
     }
 
     gg <- gg + theme(panel.grid=element_blank())
-    gg <- gg + theme(panel.border=element_blank())
     gg <- gg + theme(axis.ticks=element_blank())
     gg <- gg + theme(axis.text=element_blank())
     gg <- gg + theme(axis.title=element_blank())
     gg <- gg + theme(axis.line=element_blank())
+    gg <- gg + theme(panel.border=element_blank())
+    gg <- gg + theme(legend.position="none")
     gg <- gg + theme(panel.background=element_rect(fill="black"))
+    gg <- gg + theme(plot.background=element_rect(fill="black"))
     gg <- gg + theme(plot.margin=unit(c(0,0,0,0), "null"))
     gg <- gg + theme(axis.ticks.length=unit(0, "null"))
     gg <- gg + theme(axis.ticks.margin=unit(0, "null"))
+    gg <- gg + theme(panel.margin = unit(0,"null"))
+    gg <- gg + theme(plot.margin = rep(unit(0,"null"),4))
 
   })
 

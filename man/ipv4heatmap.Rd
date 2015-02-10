@@ -31,7 +31,7 @@ hm <- ipv4heatmap(ips)
 ## plot it
 hm$gg
 
-## inspect the points \\code{data.table}:
+## inspect the points data.table:
 str(hm$dt)
 }
 
