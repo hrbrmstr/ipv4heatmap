@@ -4,7 +4,7 @@
 #'
 #' Return a minimally annotated ggplot2 object of a hilbert-space heatmap for a set of ip addresses.
 #'
-#' @param ips character vector of ip addresses
+#' @param ips character vector of ip addresses or numeric vector if ip addresses
 #' @param colors character vector (5 elements) of colors to be used in the plot. Each color maps to the number of IP addresses in the netblock (~log scale). By default, it will use ColorBrewer "PuOr" range
 #' @param cbpal named RColorBrewer palette to use (using \code{colors} overrides any value used here)
 #' @param alpha scale pixel alpha along with color
@@ -30,7 +30,13 @@ ipv4heatmap <- function(ips, colors=NA, cb.pal="PuOr", alpha=FALSE, legend=FALSE
 
   # only takes valid IPv4 addresses
 
-  mx <- ipv4matrix(grep("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", ips, value=TRUE))
+  mx <- NULL
+
+  if (typeof(ips) != "character") {
+    mx <- ipv4matrix_l(ips)
+  } else {
+    mx <- ipv4matrix(grep("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", ips, value=TRUE))
+  }
   dt <- data.table(which(mx!=0, arr.ind=TRUE), val=mx[mx!=0])
   setkeyv(dt, c("row", "col"))
   dt$color <- cut(dt$val,
@@ -49,9 +55,9 @@ ipv4heatmap <- function(ips, colors=NA, cb.pal="PuOr", alpha=FALSE, legend=FALSE
   suppressMessages({
 
     if (alpha) {
-      gg <- gg + geom_point(data=dt, aes(x=row, y=col, color=color, alpha=color), size=1)
+      gg <- gg + geom_point(data=dt, aes(x=row, y=col, color=color, alpha=color), size=0.5, shape=15)
     } else {
-      gg <- gg + geom_point(data=dt, aes(x=row, y=col, color=color), size=1)
+      gg <- gg + geom_point(data=dt, aes(x=row, y=col, color=color), size=0.5, shape=15)
     }
 
     gg <- gg + labs(x=NULL, y=NULL, title=NULL)
@@ -77,8 +83,8 @@ ipv4heatmap <- function(ips, colors=NA, cb.pal="PuOr", alpha=FALSE, legend=FALSE
     gg <- gg + theme(plot.margin=unit(c(0,0,0,0), "null"))
     gg <- gg + theme(axis.ticks.length=unit(0, "null"))
     gg <- gg + theme(axis.ticks.margin=unit(0, "null"))
-    gg <- gg + theme(panel.margin = unit(0,"null"))
-    gg <- gg + theme(plot.margin = rep(unit(0,"null"),4))
+    gg <- gg + theme(panel.margin=unit(0,"null"))
+    gg <- gg + theme(plot.margin=rep(unit(0,"null"),4))
 
   })
 

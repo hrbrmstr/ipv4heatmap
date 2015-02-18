@@ -1,8 +1,8 @@
 Package: ipv4heatmap
 Type: Package
 Title: IPv4 Hilbert curve heatmap generator
-Version: 0.2
-Date: 2015-02-09
+Version: 0.2.5
+Date: 2015-02-18
 Author: Bob Rudis <bob.rudis@verizon.com>
 Maintainer: Bob Rudis <bob.rudis@verizon.com>
 Description: This package generates IPv4 Hilbert space heatmaps. Given a vector

@@ -9,6 +9,7 @@ Rcpp-backed package for making Hilbert IPv4 space heatmaps in R. The C/C++ code 
 
 ### News
 
+- Version `0.2.5` adds the ability to pass a numeric vector instead of a character vector to the main function
 - Version `0.2` fixes a bug where the resultant plot might not be 4096x4096 and also removes the last of the ggplot2 border artifacts
 
 ### Installation

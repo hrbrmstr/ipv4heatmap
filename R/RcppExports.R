@@ -31,6 +31,16 @@ long2ip <- function(ip) {
 #'
 #' Returns a 4096x4096 Hilbert curve matrix for an input vector of IP addresses. Generally not called directly (most of the time you'll want to use \code{ipv4heatmap}), but avilable in the event another method of visualization is necessary/desired.
 #'
+#' @param ip input numeric (dotted-deciman IPv4s) vector
+#' @return 4096x4096 matrix, with non-0 entries being the count of IP addresses in that netblock
+ipv4matrix_l <- function(ip) {
+    .Call('ipv4heatmap_ipv4matrix_l', PACKAGE = 'ipv4heatmap', ip)
+}
+
+#' IPv4 Hilbert Curve Matrix
+#'
+#' Returns a 4096x4096 Hilbert curve matrix for an input vector of IP addresses. Generally not called directly (most of the time you'll want to use \code{ipv4heatmap}), but avilable in the event another method of visualization is necessary/desired.
+#'
 #' @param ip input character (dotted-deciman IPv4s) vector
 #' @return 4096x4096 matrix, with non-0 entries being the count of IP addresses in that netblock
 ipv4matrix <- function(ip) {
