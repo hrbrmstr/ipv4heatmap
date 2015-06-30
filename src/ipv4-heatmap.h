@@ -1,3 +1,4 @@
+
 /*
  *                 ------------------------------------
  *                 iLab Neuromorphic Vision C++ Toolkit
@@ -155,13 +156,13 @@ int cidr_parse(const char *cidr, unsigned int *rfirst, unsigned int *rlast, int 
   strncpy(cidr_copy, cidr, 24);
   t = strchr(cidr_copy, '/');
   if (NULL == t) {
-    warnx("missing / on CIDR '%s'\n", cidr_copy);
+    Rprintf("missing / on CIDR '%s'\n", cidr_copy);
     return 0;;
   }
   *t++ = '\0';
   slash = atoi(t);
   if (1 != inet_pton(AF_INET, cidr_copy, &first)) {
-    warnx("inet_pton failed on '%s'\n", cidr_copy);
+    Rprintf("inet_pton failed on '%s'\n", cidr_copy);
     return 0;
   }
   first = ntohl(first);
@@ -229,13 +230,13 @@ void set_crop(const char *cidr) {
   cidr_parse(cidr, &addr_space_first_addr, &addr_space_last_addr, &addr_space_bits_per_image);
   addr_space_bits_per_image = 32 - addr_space_bits_per_image;
   if (1 == (addr_space_bits_per_image % 2))
-    errx(1, "Space to render must have even number of CIDR bits");
+    Rprintf("Space to render must have even number of CIDR bits");
 }
 
 void set_bits_per_pixel(int bpp) {
   addr_space_bits_per_pixel = bpp;
   if (1 == (addr_space_bits_per_pixel % 2))
-    errx(1, "CIDR bits per pixel must be even");
+    Rprintf("CIDR bits per pixel must be even");
 }
 
 

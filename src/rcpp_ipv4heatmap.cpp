@@ -1,18 +1,20 @@
 #include <Rcpp.h>
 
-#include <err.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <err.h>
 #include <assert.h>
 #include <math.h>
 
+#ifdef __CYGWIN__
+#include <winsock.h>
+#else
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#endif
 
 using namespace Rcpp;
 
