@@ -34,8 +34,12 @@ ipv4heatmap <- function(ips, colors=NA, cb_pal="PuOr", alpha=FALSE, legend=FALSE
 
   # only takes valid IPv4 addresses
 
-  mx <- ipv4matrix(grep("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$",
-                        ips, value=TRUE))
+  if (typeof(ips) != "character") {
+    mx <- ipv4matrix_l(ips)
+  } else {
+    mx <- ipv4matrix(grep("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", ips, value=TRUE))
+  }
+
   dt <- data.table(which(mx!=0, arr.ind=TRUE), val=mx[mx!=0])
   setkeyv(dt, c("row", "col"))
   dt$color <- cut(dt$val,

@@ -1,7 +1,7 @@
 Package: ipv4heatmap
 Type: Package
 Title: Generate Hilbert Curve Heatmaps from IPv4 Address Lists
-Version: 0.2.0.9000
+Version: 0.3.0.9000
 Date: 2015-06-30
 Authors@R: c(person("Bob", "Rudis", email = "bob@rudis.net", role = c("aut", "cre")))
 Maintainer: Bob Rudis <bob@rudis.net>
