@@ -55,13 +55,8 @@ packageVersion("ipv4heatmap")
 #> [[1]]$ymax
 #> [1] 767
 
-# get and plot some IPs from ZeusTracker
-loc <- tempfile()
-download.file("https://zeustracker.abuse.ch/blocklist.php?download=badips", 
-              loc, method="curl")
-ips <- grep("^#", readLines(loc), invert=TRUE, value=TRUE)
-unlink(loc)
-
+# get and plot some IPs
+ips <- readLines("ips.txt")
 hm <- ipv4heatmap(ips)
 png("hmex.png", 4096, 4096)
 print(hm$gg)
