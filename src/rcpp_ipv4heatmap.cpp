@@ -7,14 +7,52 @@
 #include <assert.h>
 #include <math.h>
 
-#ifdef __CYGWIN__
-#include <winsock.h>
-#else
+#ifndef _WIN32
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#else
+#define windows
+#include <windows.h>
+#include <winsock.h>
+#include <string.h>
+#define inet_aton(A,B) (0, B.s_addr=inet_addr(A))
+
+#define sockerrno WSAGetLastError()
+
+#define ECONNREFUSED WSAECONNREFUSED
+#define EADDRINUSE WSAEADDRINUSE
+#define ENOTSOCK WSAENOTSOCK
+#define EISCONN WSAEISCONN
+#define ETIMEDOUT WSAETIMEDOUT
+#define ENETUNREACH WSAENETUNREACH
+#define EINPROGRESS WSAEINPROGRESS
+#define EALREADY WSAEALREADY
+#define EAFNOSUPPORT WSAEAFNOSUPPORT
+#define EBADF WSAEBADF
+#define EINVAL WSAEINVAL
+#define EOPNOTSUPP WSAEOPNOTSUPP
+#define EFAULT WSAEFAULT
+#define EWOULDBLOCK WSAEWOULDBLOCK
+#define EACCES WSAEACCES
+
+#ifdef USE_SNPRINTF
+int snprintf(char *buf, int len, char *fmt, ...)
+{
+   va_list argptr;
+   int cnt;
+
+   va_start(argptr, fmt);
+   cnt = vsprintf(buf, fmt, argptr);
+   va_end(argptr);
+
+   return(cnt);
+}
 #endif
+
+#endif
+
 
 using namespace Rcpp;
 
