@@ -27,21 +27,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// ipv4matrix_l
-NumericMatrix ipv4matrix_l(NumericVector ip);
-RcppExport SEXP ipv4heatmap_ipv4matrix_l(SEXP ipSEXP) {
-BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type ip(ipSEXP );
-        NumericMatrix __result = ipv4matrix_l(ip);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
-END_RCPP
-}
 // ipv4matrix
 NumericMatrix ipv4matrix(CharacterVector ip);
 RcppExport SEXP ipv4heatmap_ipv4matrix(SEXP ipSEXP) {

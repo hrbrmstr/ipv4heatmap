@@ -13,11 +13,6 @@ The following functions are implemented:
 
 -   0.2.0.999 - No longer requires Boost libraries, passes CRAN checks
 
-### News
-
-- Version `0.2.5` adds the ability to pass a numeric vector instead of a character vector to the main function
-- Version `0.2` fixes a bug where the resultant plot might not be 4096x4096 and also removes the last of the ggplot2 border artifacts
-
 ### Installation
 
 ``` r

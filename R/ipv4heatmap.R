@@ -6,18 +6,12 @@ color <- NULL
 #' Return a minimally annotated \code{ggplot2} object of a Hilbert-space heatmap for
 #' a set of IPv4 addresses.
 #'
-<<<<<<< HEAD
 #' @param ips character vector of IPv4 addresses
 #' @param colors character vector (5 elements) of colors to be used in the plot.
 #'        Each color maps to the number of IP addresses in the netblock (~log scale).
 #'        By default, it will use ColorBrewer "PuOr" range
 #' @param cb_pal named RColorBrewer palette to use (using \code{colors} overrides
 #'        any value used here)
-=======
-#' @param ips character vector of ip addresses or numeric vector if ip addresses
-#' @param colors character vector (5 elements) of colors to be used in the plot. Each color maps to the number of IP addresses in the netblock (~log scale). By default, it will use ColorBrewer "PuOr" range
-#' @param cbpal named RColorBrewer palette to use (using \code{colors} overrides any value used here)
->>>>>>> a538c1a4fc0b3ebc22dbed7ead515583fd172a6e
 #' @param alpha scale pixel alpha along with color
 #' @param legend if you want the legend, then set this to TRUE.
 #' @return list containing a ggplot2 object (\code{gg}) and the x,y point data
@@ -40,18 +34,8 @@ ipv4heatmap <- function(ips, colors=NA, cb_pal="PuOr", alpha=FALSE, legend=FALSE
 
   # only takes valid IPv4 addresses
 
-<<<<<<< HEAD
   mx <- ipv4matrix(grep("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$",
                         ips, value=TRUE))
-=======
-  mx <- NULL
-
-  if (typeof(ips) != "character") {
-    mx <- ipv4matrix_l(ips)
-  } else {
-    mx <- ipv4matrix(grep("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", ips, value=TRUE))
-  }
->>>>>>> a538c1a4fc0b3ebc22dbed7ead515583fd172a6e
   dt <- data.table(which(mx!=0, arr.ind=TRUE), val=mx[mx!=0])
   setkeyv(dt, c("row", "col"))
   dt$color <- cut(dt$val,
@@ -70,7 +54,6 @@ ipv4heatmap <- function(ips, colors=NA, cb_pal="PuOr", alpha=FALSE, legend=FALSE
   suppressMessages({
 
     if (alpha) {
-<<<<<<< HEAD
       gg <- gg + geom_point(data=dt,
                             aes(x=row, y=col, color=color, alpha=color),
                             size=1)
@@ -85,18 +68,6 @@ ipv4heatmap <- function(ips, colors=NA, cb_pal="PuOr", alpha=FALSE, legend=FALSE
     gg <- gg + scale_x_continuous(expand=c(0,0))
     gg <- gg + scale_y_reverse(expand=c(0,0))
     gg <- gg + coord_equal(xlim=c(0, 4095), ylim=c(0, 4095))
-=======
-      gg <- gg + geom_point(data=dt, aes(x=row, y=col, color=color, alpha=color), size=0.5, shape=15)
-    } else {
-      gg <- gg + geom_point(data=dt, aes(x=row, y=col, color=color), size=0.5, shape=15)
-    }
-
-    gg <- gg + labs(x=NULL, y=NULL, title=NULL)
-    gg <- gg + scale_color_manual(values=hilbcols)
-    gg <- gg + scale_x_continuous(expand=c(0,0), limits=c(0, 4095))
-    gg <- gg + scale_y_reverse(expand=c(0,0), limits=c(4095, 0))
-    gg <- gg + coord_equal()
->>>>>>> a538c1a4fc0b3ebc22dbed7ead515583fd172a6e
     gg <- gg + theme_bw()
 
     if (legend == FALSE) {
@@ -104,19 +75,15 @@ ipv4heatmap <- function(ips, colors=NA, cb_pal="PuOr", alpha=FALSE, legend=FALSE
     }
 
     gg <- gg + theme(panel.grid=element_blank())
+    gg <- gg + theme(panel.border=element_blank())
     gg <- gg + theme(axis.ticks=element_blank())
     gg <- gg + theme(axis.text=element_blank())
     gg <- gg + theme(axis.title=element_blank())
     gg <- gg + theme(axis.line=element_blank())
-    gg <- gg + theme(panel.border=element_blank())
-    gg <- gg + theme(legend.position="none")
     gg <- gg + theme(panel.background=element_rect(fill="black"))
-    gg <- gg + theme(plot.background=element_rect(fill="black"))
     gg <- gg + theme(plot.margin=unit(c(0,0,0,0), "null"))
     gg <- gg + theme(axis.ticks.length=unit(0, "null"))
     gg <- gg + theme(axis.ticks.margin=unit(0, "null"))
-    gg <- gg + theme(panel.margin=unit(0,"null"))
-    gg <- gg + theme(plot.margin=rep(unit(0,"null"),4))
 
   })
 
