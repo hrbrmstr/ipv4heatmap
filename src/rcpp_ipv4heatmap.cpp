@@ -95,6 +95,40 @@ CharacterVector long2ip (NumericVector ip) {
 //' use \code{ipv4heatmap}), but avilable in the event another method of
 //' visualization is necessary/desired.
 //'
+//' @param ip input numeric (dotted-deciman IPv4s) vector
+//' @return 4096x4096 matrix, with non-0 entries being the count of IP addresses in that netblock
+// [[Rcpp::export]]
+NumericMatrix ipv4matrix_l(NumericVector ip) {
+
+  unsigned int x;
+  unsigned int y;
+
+  // init hilbert stuff
+
+  set_order() ;
+
+  // make a matrix to hold our hilbert space & init to 0
+  NumericMatrix ipmap(4096, 4096);
+  std::fill(ipmap.begin(), ipmap.end(), 0);
+
+  int ipCt = ip.size() ;
+  for (int i=0; i<ipCt; i++) {
+
+    if (0 != xy_from_ip(ip[i], &x, &y)) {
+      ipmap(x, y) = ipmap(x, y) + 1;
+    }
+
+  }
+
+  return(ipmap);
+
+}
+
+
+//' IPv4 Hilbert Curve Matrix
+//'
+//' Returns a 4096x4096 Hilbert curve matrix for an input vector of IP addresses. Generally not called directly (most of the time you'll want to use \code{ipv4heatmap}), but avilable in the event another method of visualization is necessary/desired.
+//'
 //' @param ip input character (dotted-deciman IPv4s) vector
 //' @return 4096x4096 matrix, with non-0 entries being the count of IP addresses
 //'         in that netblock
