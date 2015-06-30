@@ -1,36 +1,41 @@
+# I don't like using aes_string
+color <- NULL
 
-
-#' IPv4 Hilbert Curve Heatmap
+#' Create an IPv4 Hilbert curve heatmap
 #'
-#' Return a minimally annotated ggplot2 object of a hilbert-space heatmap for a set of ip addresses.
+#' Return a minimally annotated \code{ggplot2} object of a Hilbert-space heatmap for
+#' a set of IPv4 addresses.
 #'
-#' @param ips character vector of ip addresses
-#' @param colors character vector (5 elements) of colors to be used in the plot. Each color maps to the number of IP addresses in the netblock (~log scale). By default, it will use ColorBrewer "PuOr" range
-#' @param cbpal named RColorBrewer palette to use (using \code{colors} overrides any value used here)
+#' @param ips character vector of IPv4 addresses
+#' @param colors character vector (5 elements) of colors to be used in the plot.
+#'        Each color maps to the number of IP addresses in the netblock (~log scale).
+#'        By default, it will use ColorBrewer "PuOr" range
+#' @param cb_pal named RColorBrewer palette to use (using \code{colors} overrides
+#'        any value used here)
 #' @param alpha scale pixel alpha along with color
 #' @param legend if you want the legend, then set this to TRUE.
-#' @return list containing a ggplot2 object (\code{gg}) and the x,y point data (\code{dt} - which is a \code{data.table}) which can be ggsave'd or manipulated further
+#' @return list containing a ggplot2 object (\code{gg}) and the x,y point data
+#'         (\code{dt}) - which is a \code{data.table}).
+#' @export
 #' @examples
-#' ips <- read.csv("fileofipaddresses.csv")
+#' ips <- c("37.113.19.46", "3.188.210.86", "81.97.190.213", "36.242.75.255",
+#' "37.85.209.22", "79.246.149.132", "124.43.169.59", "15.114.34.91",
+#' "99.202.51.14", "97.211.252.39", "78.43.125.169", "28.245.39.90",
+#' "12.80.98.188", "1.139.230.141", "113.133.95.189", "98.194.96.20",
+#' "109.57.232.176", "47.49.35.6", "14.187.171.0", "62.186.25.75")
 #' hm <- ipv4heatmap(ips)
 #'
 #' ## plot it
-#' hm$gg
+#' # hm$gg
 #'
-#' ## inspect the points \code{data.table}:
+#' ## inspect the points data.table:
 #' str(hm$dt)
-#' @export
-
-ipv4heatmap <- function(ips, colors=NA, cb.pal="PuOr", alpha=FALSE, legend=FALSE) {
-
-  require(data.table)
-  require(ggplot2)
-  require(grid)
-  require(RColorBrewer)
+ipv4heatmap <- function(ips, colors=NA, cb_pal="PuOr", alpha=FALSE, legend=FALSE) {
 
   # only takes valid IPv4 addresses
 
-  mx <- ipv4matrix(grep("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", ips, value=TRUE))
+  mx <- ipv4matrix(grep("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$",
+                        ips, value=TRUE))
   dt <- data.table(which(mx!=0, arr.ind=TRUE), val=mx[mx!=0])
   setkeyv(dt, c("row", "col"))
   dt$color <- cut(dt$val,
@@ -39,7 +44,7 @@ ipv4heatmap <- function(ips, colors=NA, cb.pal="PuOr", alpha=FALSE, legend=FALSE
                   labels=c("1-5", "6-15", "16-40", "41-100", "101-255"))
 
   if (anyNA(colors)) {
-    hilbcols <- brewer.pal(5, cb.pal)
+    hilbcols <- brewer.pal(5, cb_pal)
   } else {
     hilbcols <- colors
   }
@@ -49,17 +54,20 @@ ipv4heatmap <- function(ips, colors=NA, cb.pal="PuOr", alpha=FALSE, legend=FALSE
   suppressMessages({
 
     if (alpha) {
-      gg <- gg + geom_point(data=dt, aes(x=row, y=col, color=color, alpha=color), size=1)
+      gg <- gg + geom_point(data=dt,
+                            aes(x=row, y=col, color=color, alpha=color),
+                            size=1)
     } else {
-      gg <- gg + geom_point(data=dt, aes(x=row, y=col, color=color), size=1)
+      gg <- gg + geom_point(data=dt,
+                            aes(x=row, y=col, color=color),
+                            size=1)
     }
 
-    gg <- gg + xlim(0, 4095) + ylim(0, 4095)
     gg <- gg + labs(x="", y="", title="")
     gg <- gg + scale_color_manual(values=hilbcols)
     gg <- gg + scale_x_continuous(expand=c(0,0))
     gg <- gg + scale_y_reverse(expand=c(0,0))
-    gg <- gg + coord_equal()
+    gg <- gg + coord_equal(xlim=c(0, 4095), ylim=c(0, 4095))
     gg <- gg + theme_bw()
 
     if (legend == FALSE) {

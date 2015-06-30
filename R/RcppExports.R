@@ -7,6 +7,7 @@
 #'
 #' @param ip input character vector of IPv4 addresses (dotted-decimal)
 #' @return vector of equivalent long integer IP addresses
+#' @export
 #' @examples
 #' ip2long("24.0.5.11")
 #' ip2long(c("24.0.5.11", "211.3.77.96"))
@@ -16,10 +17,12 @@ ip2long <- function(ip) {
 
 #' Intger IPv4 Address Conversion to Character
 #'
-#' Converts IP addresses in long integer format to character (dotted-decimal) notation
+#' Converts IP addresses in long integer format to character (dotted-decimal)
+#' notation
 #'
 #' @param ip input numeric (long integer) vector
 #' @return vector of equivalent character (dotted-decimal) IP addresses
+#' @export
 #' @examples
 #' long2ip(402654475)
 #' long2ip(c(402654475, 3540208992))
@@ -29,20 +32,28 @@ long2ip <- function(ip) {
 
 #' IPv4 Hilbert Curve Matrix
 #'
-#' Returns a 4096x4096 Hilbert curve matrix for an input vector of IP addresses. Generally not called directly (most of the time you'll want to use \code{ipv4heatmap}), but avilable in the event another method of visualization is necessary/desired.
+#' Returns a 4096x4096 Hilbert curve matrix for an input vector of IP
+#' addresses. Generally not called directly (most of the time you'll want to
+#' use \code{ipv4heatmap}), but avilable in the event another method of
+#' visualization is necessary/desired.
 #'
 #' @param ip input character (dotted-deciman IPv4s) vector
-#' @return 4096x4096 matrix, with non-0 entries being the count of IP addresses in that netblock
+#' @return 4096x4096 matrix, with non-0 entries being the count of IP addresses
+#'         in that netblock
+#' @export
 ipv4matrix <- function(ip) {
     .Call('ipv4heatmap_ipv4matrix', PACKAGE = 'ipv4heatmap', ip)
 }
 
 #' Bounding box from CIDR blocks
 #'
-#' Returns a \code{list} of bounding boxes for a given CIDR within the Hilbert-curve plane
+#' Returns a \code{list} of bounding boxes for a given CIDR within the
+#' Hilbert-curve plane
 #'
 #' @param cidr character vector of dotted-decimal/digit CIDRs
-#' @return list of bounding box extents for each CIDR - \code{cidr}, \code{xmin}, \code{ymin}, \code{xmax}, \code{ymax}
+#' @return list of bounding box extents for each CIDR - \code{cidr},
+#'         \code{xmin}, \code{ymin}, \code{xmax}, \code{ymax}
+#' @export
 #' @examples
 #' boundingBoxFromCIDR("30.0.0.0/8")
 boundingBoxFromCIDR <- function(cidr) {

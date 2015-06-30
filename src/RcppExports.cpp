@@ -9,59 +9,43 @@ using namespace Rcpp;
 NumericVector ip2long(CharacterVector ip);
 RcppExport SEXP ipv4heatmap_ip2long(SEXP ipSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< CharacterVector >::type ip(ipSEXP );
-        NumericVector __result = ip2long(ip);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterVector >::type ip(ipSEXP);
+    __result = Rcpp::wrap(ip2long(ip));
+    return __result;
 END_RCPP
 }
 // long2ip
 CharacterVector long2ip(NumericVector ip);
 RcppExport SEXP ipv4heatmap_long2ip(SEXP ipSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericVector >::type ip(ipSEXP );
-        CharacterVector __result = long2ip(ip);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector >::type ip(ipSEXP);
+    __result = Rcpp::wrap(long2ip(ip));
+    return __result;
 END_RCPP
 }
 // ipv4matrix
 NumericMatrix ipv4matrix(CharacterVector ip);
 RcppExport SEXP ipv4heatmap_ipv4matrix(SEXP ipSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< CharacterVector >::type ip(ipSEXP );
-        NumericMatrix __result = ipv4matrix(ip);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterVector >::type ip(ipSEXP);
+    __result = Rcpp::wrap(ipv4matrix(ip));
+    return __result;
 END_RCPP
 }
 // boundingBoxFromCIDR
 List boundingBoxFromCIDR(CharacterVector cidr);
 RcppExport SEXP ipv4heatmap_boundingBoxFromCIDR(SEXP cidrSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< CharacterVector >::type cidr(cidrSEXP );
-        List __result = boundingBoxFromCIDR(cidr);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterVector >::type cidr(cidrSEXP);
+    __result = Rcpp::wrap(boundingBoxFromCIDR(cidr));
+    return __result;
 END_RCPP
 }
