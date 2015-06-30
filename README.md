@@ -63,11 +63,14 @@ ips <- grep("^#", readLines(loc), invert=TRUE, value=TRUE)
 unlink(loc)
 
 hm <- ipv4heatmap(ips)
-
-hm$gg
+png("hmex.png", 4096, 4096)
+print(hm$gg)
+dev.off()
+#> quartz_off_screen 
+#>                 2
 ```
 
-![](README-usage-1.png)
+![](hmex.png)
 
 ### Code of Conduct
 
